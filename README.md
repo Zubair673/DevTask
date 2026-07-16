@@ -63,50 +63,47 @@ The application allows users to securely register, log in, manage their personal
 
 ### 🏠 Home Page
 
-> Add Screenshot Here
+<img width="1366" height="642" alt="image" src="https://github.com/user-attachments/assets/a34f042b-24b6-4fac-93d2-28cce76249cd" />
 
 ---
 
 ### Login Page
 
-> Add Screenshot Here
+<img width="1366" height="644" alt="image" src="https://github.com/user-attachments/assets/6595418f-0bc5-4568-85ab-a3604d78c17b" />
 
 ---
 
 ### 📊 Dashboard
 
-> Add Screenshot Here
+<img width="1366" height="642" alt="image" src="https://github.com/user-attachments/assets/1e85ae78-da4c-4639-b59e-93af58d721e2" />
 
 ---
 
 ### ✅ Task Management
 
-> Add Screenshot Here
+<img width="1366" height="638" alt="image" src="https://github.com/user-attachments/assets/5d81510d-da34-4df6-b647-1d6e7d3ba157" />
 
 ---
 
 ### 👤 Profile Page
 
-> Add Screenshot Here
+<img width="1362" height="647" alt="image" src="https://github.com/user-attachments/assets/7c8cc8a6-410a-4965-ad09-8f5be4eaadb6" />
 
 ---
 
 ## Live Demo
 
+
 ### 🌐 Frontend
 
-Add your Vercel URL here
 
 ```
-https://your-vercel-link.vercel.app
-```
+https://dev-task-livid-eight.vercel.app/
 
 ### ⚙️ Backend API
 
-Add your Render URL here
+https://devtask-backend-97oz.onrender.com/
 
-```
-https://your-render-link.onrender.com
 ```
 
 ---
