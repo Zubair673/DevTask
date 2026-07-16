@@ -93,17 +93,16 @@ The application allows users to securely register, log in, manage their personal
 
 ## Live Demo
 
-
 ### 🌐 Frontend
-
 
 ```
 https://dev-task-livid-eight.vercel.app/
+```
 
 ### ⚙️ Backend API
 
+```
 https://devtask-backend-97oz.onrender.com/
-
 ```
 
 ---
