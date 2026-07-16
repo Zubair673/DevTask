@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import DashboardNavbar from "../../components/DashboardNavbar/DashboardNavbar";
 import WelcomeCard from "../../components/WelcomeCard/WelcomeCard";
@@ -9,11 +10,21 @@ import TaskList from "../../components/Dashboard/TaskList";
 
 function Dashboard() {
 
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
-
   const [priorityFilter, setPriorityFilter] = useState("All");
-
   const [statusFilter, setStatusFilter] = useState("All");
+
+  useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login", { replace: true });
+    }
+
+  }, [navigate]);
 
   return (
     <>
@@ -48,7 +59,6 @@ function Dashboard() {
         </div>
 
       </section>
-
     </>
   );
 }

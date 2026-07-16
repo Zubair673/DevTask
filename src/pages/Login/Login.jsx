@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import API from "../../api/api";
 
 function Login() {
 
@@ -13,32 +14,53 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  // ===============================
+  // Login
+  // ===============================
+  const handleLogin = async (e) => {
 
     e.preventDefault();
 
     if (!email || !password) {
+
       toast.error("Please fill all fields");
       return;
+
     }
 
-    setLoading(true);
+    try {
 
-    setTimeout(() => {
+      setLoading(true);
+
+      const { data } = await API.post("/auth/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
+      toast.success(data.message);
+
+      navigate("/dashboard", {
+        replace: true,
+      });
+
+    } catch (error) {
+
+      toast.error(
+        error.response?.data?.message || "Login Failed"
+      );
+
+    } finally {
 
       setLoading(false);
 
-      toast.success("Login Successful");
-
-      console.log({
-        email,
-        password,
-        rememberMe,
-      });
-
-      navigate("/dashboard");
-
-    }, 1500);
+    }
 
   };
 
@@ -127,7 +149,7 @@ function Login() {
 
           </div>
 
-          {/* Remember + Forgot */}
+          {/* Remember Me */}
 
           <div className="flex justify-between items-center mb-6">
 
@@ -159,7 +181,7 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg transition"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg transition cursor-pointer"
           >
 
             {loading ? "Logging In..." : "Login"}

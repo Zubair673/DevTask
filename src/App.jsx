@@ -18,39 +18,120 @@ import EditTask from "./pages/EditTask/EditTask";
 // Profile
 import Profile from "./pages/Profile/Profile";
 
+// Protected Route
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Guest Route
+import GuestRoute from "./components/GuestRoute";
+
 // Not Found
 import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
+
   return (
+
     <Routes>
 
-      {/* Home */}
-      <Route path="/" element={<Home />} />
+      {/* ================= Home ================= */}
 
-      {/* Authentication */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
       <Route
-        path="/forgot-password"
-        element={<ForgotPassword />}
+        path="/"
+        element={
+          <GuestRoute>
+            <Home />
+          </GuestRoute>
+        }
       />
 
-      {/* Dashboard */}
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* ================= Login ================= */}
 
-      {/* Tasks */}
-      <Route path="/add-task" element={<AddTask />} />
-      <Route path="/edit-task" element={<EditTask />} />
+      <Route
+        path="/login"
+        element={
+          <GuestRoute>
+            <Login />
+          </GuestRoute>
+        }
+      />
 
-      {/* Profile */}
-      <Route path="/profile" element={<Profile />} />
+      {/* ================= Register ================= */}
 
-      {/* 404 */}
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="/register"
+        element={
+          <GuestRoute>
+            <Register />
+          </GuestRoute>
+        }
+      />
+
+      {/* ================= Forgot Password ================= */}
+
+      <Route
+        path="/forgot-password"
+        element={
+          <GuestRoute>
+            <ForgotPassword />
+          </GuestRoute>
+        }
+      />
+
+      {/* ================= Dashboard ================= */}
+
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ================= Add Task ================= */}
+
+      <Route
+        path="/add-task"
+        element={
+          <ProtectedRoute>
+            <AddTask />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ================= Edit Task ================= */}
+
+      <Route
+        path="/edit-task/:id"
+        element={
+          <ProtectedRoute>
+            <EditTask />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ================= Profile ================= */}
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ================= 404 ================= */}
+
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
 
     </Routes>
+
   );
+
 }
 
 export default App;

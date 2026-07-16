@@ -1,78 +1,73 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import API from "../../api/api";
 
 function Register() {
 
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
-
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
 
     e.preventDefault();
 
     if (!name || !email || !password || !confirmPassword) {
-
       toast.error("Please fill all fields");
-
       return;
-
     }
 
     if (password.length < 6) {
-
       toast.error("Password must be at least 6 characters");
-
       return;
-
     }
 
     if (password !== confirmPassword) {
-
       toast.error("Passwords do not match");
-
       return;
-
     }
 
-    setLoading(true);
+    try {
 
-    setTimeout(() => {
+      setLoading(true);
+
+      const { data } = await API.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
+
+      toast.success(data.message);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+
+    } catch (error) {
+
+      toast.error(
+        error.response?.data?.message || "Registration Failed"
+      );
+
+    } finally {
 
       setLoading(false);
 
-      toast.success("Registration Successful");
-
-      console.log({
-
-        name,
-
-        email,
-
-        password,
-
-      });
-
-      setTimeout(() => {
-
-        navigate("/login");
-
-      }, 1000);
-
-    }, 1500);
+    }
 
   };
 
@@ -85,21 +80,15 @@ function Register() {
         <div className="text-center">
 
           <h1 className="text-4xl font-bold text-blue-600">
-
             DevTask
-
           </h1>
 
           <h2 className="text-2xl font-semibold mt-5">
-
             Create Account
-
           </h2>
 
           <p className="text-gray-500 mt-2">
-
             Register to start managing your tasks.
-
           </p>
 
         </div>
@@ -114,9 +103,7 @@ function Register() {
           <div className="mb-5">
 
             <label className="block mb-2 font-medium">
-
               Full Name
-
             </label>
 
             <input
@@ -135,9 +122,7 @@ function Register() {
           <div className="mb-5">
 
             <label className="block mb-2 font-medium">
-
               Email Address
-
             </label>
 
             <input
@@ -156,9 +141,7 @@ function Register() {
           <div className="mb-5">
 
             <label className="block mb-2 font-medium">
-
               Password
-
             </label>
 
             <input
@@ -177,9 +160,7 @@ function Register() {
           <div className="mb-5">
 
             <label className="block mb-2 font-medium">
-
               Confirm Password
-
             </label>
 
             <input
@@ -208,9 +189,7 @@ function Register() {
               />
 
               <span className="text-sm">
-
                 Show Password
-
               </span>
 
             </label>
@@ -226,9 +205,7 @@ function Register() {
               />
 
               <span className="text-sm">
-
                 Show Confirm
-
               </span>
 
             </label>
@@ -257,9 +234,7 @@ function Register() {
             to="/login"
             className="text-blue-600 font-semibold hover:underline"
           >
-
             Login
-
           </Link>
 
         </p>

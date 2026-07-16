@@ -1,32 +1,64 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import API from "../../api/api";
 
 function ForgotPassword() {
 
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
-    if (!email) {
-      toast.error("Please enter your email address");
+    if (!email || !newPassword || !confirmPassword) {
+
+      toast.error("Please fill all fields");
       return;
+
     }
 
-    setLoading(true);
+    if (newPassword !== confirmPassword) {
 
-    setTimeout(() => {
+      toast.error("Passwords do not match");
+      return;
+
+    }
+
+    try {
+
+      setLoading(true);
+
+      const { data } = await API.post("/auth/reset-password", {
+        email,
+        newPassword,
+      });
+
+      toast.success(data.message);
+
+      // Redirect to Login (Replace History)
+      navigate("/login", {
+        replace: true,
+      });
+
+    } catch (error) {
+
+      toast.error(
+        error.response?.data?.message || "Password Reset Failed"
+      );
+
+    } finally {
 
       setLoading(false);
 
-      toast.success("Password reset link sent successfully");
-
-      setEmail("");
-
-    }, 1500);
+    }
 
   };
 
@@ -43,11 +75,11 @@ function ForgotPassword() {
           </h1>
 
           <h2 className="text-2xl font-semibold mt-5">
-            Forgot Password
+            Reset Password
           </h2>
 
           <p className="text-gray-500 mt-2">
-            Enter your registered email address to receive a password reset link.
+            Enter your registered email and a new password.
           </p>
 
         </div>
@@ -57,7 +89,8 @@ function ForgotPassword() {
           className="mt-8"
         >
 
-          <div className="mb-6">
+          {/* Email */}
+          <div className="mb-5">
 
             <label className="block mb-2 font-medium">
               Email Address
@@ -74,13 +107,66 @@ function ForgotPassword() {
 
           </div>
 
+          {/* New Password */}
+          <div className="mb-5">
+
+            <label className="block mb-2 font-medium">
+              New Password
+            </label>
+
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter new password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+
+          </div>
+
+          {/* Confirm Password */}
+          <div className="mb-5">
+
+            <label className="block mb-2 font-medium">
+              Confirm Password
+            </label>
+
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+
+          </div>
+
+          {/* Show Password */}
+          <div className="flex items-center gap-2 mb-6">
+
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+              className="cursor-pointer"
+            />
+
+            <span className="text-sm cursor-pointer">
+              Show Password
+            </span>
+
+          </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg transition"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-3 rounded-lg transition cursor-pointer"
           >
 
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading ? "Resetting..." : "Reset Password"}
 
           </button>
 

@@ -1,7 +1,8 @@
 function WelcomeCard() {
 
-  // Baad mein MongoDB se user ka naam aayega
-  const userName = "Muhammad Zubair Rauf";
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const userName = user?.name || "Developer";
 
   const today = new Date();
 
