@@ -10,6 +10,7 @@ function Footer() {
 
           {/* Logo */}
           <div>
+
             <h2 className="text-3xl font-bold text-white">
               DevTask
             </h2>
@@ -19,15 +20,18 @@ function Footer() {
               students to manage assignments, coding practice,
               semester projects and daily tasks.
             </p>
+
           </div>
 
           {/* Quick Links */}
           <div>
+
             <h3 className="text-xl font-semibold text-white mb-4">
               Quick Links
             </h3>
 
             <ul className="space-y-3">
+
               <li>
                 <Link
                   to="/"
@@ -54,39 +58,48 @@ function Footer() {
                   Register
                 </Link>
               </li>
+
             </ul>
+
           </div>
 
           {/* Contact */}
           <div>
+
             <h3 className="text-xl font-semibold text-white mb-4">
               Contact
             </h3>
 
-            <div className="flex items-center gap-2 mb-5">
+            <a
+              href="mailto:zubairzk2244@email.com"
+              className="flex items-center gap-2 mb-5 hover:text-blue-400 transition duration-300"
+            >
               <Mail size={18} />
-              <span>example@email.com</span>
-            </div>
+              <span>zubairzk2244@email.com</span>
+            </a>
 
             <div className="flex gap-6">
-  <a
-    href="https://github.com/Zubair673"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hover:text-blue-400 transition duration-300"
-  >
-    GitHub
-  </a>
 
-  <a
-    href="https://www.linkedin.com/in/muhammad-zubair-rauf-607a063ab"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="hover:text-blue-400 transition duration-300"
-  >
-    LinkedIn
-  </a>
-</div>
+              <a
+                href="https://github.com/Zubair673"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition duration-300"
+              >
+                GitHub
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/muhammad-zubair-rauf-607a063ab"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition duration-300"
+              >
+                LinkedIn
+              </a>
+
+            </div>
+
           </div>
 
         </div>
