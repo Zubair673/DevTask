@@ -1,70 +1,85 @@
-import { ListChecks, FolderKanban, Users, Trophy } from "lucide-react";
+import {
+  ListChecks,
+  FolderKanban,
+  ShieldCheck,
+  Smartphone,
+} from "lucide-react";
 
 function Statistics() {
+
   const stats = [
     {
       icon: <ListChecks size={40} className="text-blue-600" />,
-      number: "1000+",
-      title: "Tasks Managed",
+      number: "100+",
+      title: "Tasks Organized",
     },
     {
       icon: <FolderKanban size={40} className="text-blue-600" />,
-      number: "250+",
-      title: "Projects Planned",
+      number: "10+",
+      title: "Project Categories",
     },
     {
-      icon: <Users size={40} className="text-blue-600" />,
-      number: "500+",
-      title: "Students",
+      icon: <ShieldCheck size={40} className="text-blue-600" />,
+      number: "100%",
+      title: "Secure Authentication",
     },
     {
-      icon: <Trophy size={40} className="text-blue-600" />,
-      number: "95%",
-      title: "Productivity",
+      icon: <Smartphone size={40} className="text-blue-600" />,
+      number: "100%",
+      title: "Responsive Design",
     },
   ];
 
   return (
     <section className="py-20 bg-blue-600 text-white">
+
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="text-center mb-14">
+
           <h2 className="text-4xl font-bold">
-            DevTask in Numbers
+            DevTask Highlights
           </h2>
 
           <p className="mt-4 text-blue-100">
-            Everything you need to stay productive and organized.
+            A modern task management platform built for productivity,
+            security, and a seamless user experience.
           </p>
+
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {stats.map((item, index) => (
+
             <div
               key={index}
-              className="bg-white text-gray-800 rounded-2xl p-8 text-center shadow-lg"
+              className="bg-white text-gray-800 rounded-2xl p-8 text-center shadow-lg hover:-translate-y-2 hover:shadow-2xl transition duration-300"
             >
+
               <div className="flex justify-center mb-5">
                 {item.icon}
               </div>
 
-              <h3 className="text-4xl font-bold">
+              <h3 className="text-4xl font-bold text-blue-600">
                 {item.number}
               </h3>
 
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-gray-600 font-medium">
                 {item.title}
               </p>
 
             </div>
+
           ))}
 
         </div>
 
       </div>
+
     </section>
   );
+
 }
 
 export default Statistics;
